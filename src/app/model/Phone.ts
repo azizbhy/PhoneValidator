@@ -1,6 +1,7 @@
-export interface Phone {
-    number : number;
-    country_code : string;
-    format : number;
+export class CountryApiResponce {
+    [key: string]: {
+        "country_name": string,
+        "dialling_code": string
+      }
 }
 

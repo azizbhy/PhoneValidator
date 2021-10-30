@@ -1,40 +1,66 @@
-<div class="top" style="justify-content: center;">
-<h2>Phone number validator</h2>
-<mat-card-subtitle>Fill in the form below to validate a phone number</mat-card-subtitle><br><br>
-</div>
-
-<div class="container">
-  <form #phoneValidator="ngForm" (ngSumbit)="onSubmit(phoneValidator.value)">
-    <div class="row">
-        <div class="col-25">
-          <label for="country">Country</label>
-        </div>
-        <div class="col-75">
-          <select id="country" name="country_code" ngModel> 
-            <option value="Select a country">Select Country</option>
-            <option *ngFor="let countries of listCodesCountries | keyvalue">
-                {{countries.key}} : {{ countries.value.country_name }}
-                {{countries.value.dialling_code}}</option>
-          </select>
-    
-        </div>
-      </div>
+<div class="content" role="main">
 
 
+  <!-- Resources -->
+  <h2>Phone Validator</h2>
+  <p>Please fill in the form</p>
 
-  <div class="row">
-    <div class="col-25">
-      <label for="Number">Phone number</label>
+  <div class="card-container mt-3">
+    <div class="card">
+      <app-country-code-list (countryChange)="otherCountry($event)"></app-country-code-list>
     </div>
-    <div class="col-75">
-      <input type="text" id="pnumber" name="number"  ngModel placeholder="Insert phone number here" >
+
+    <div class="card">
+      <form onSubmit="return false">
+        <mat-form-field >
+          <mat-label>Phone Number</mat-label>
+          <input matInput
+                 placeholder="Phone number"
+                 [formControl]="number"
+                 type="number">
+          <mat-error *ngIf="number.hasError('required')">
+            Phone number is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+
+    </div>
+
+  </div>
+
+  <div>
+    <button class="submit-btn"
+            color="primary"
+            [disabled]="number.invalid || !number.dirty"
+            (click)="CorrectNumber()">
+      Validate Number
+    </button>
+  </div>
+
+  <div *ngIf="($validationResult | async) as validationResult"  class="mt-5">
+      <div *ngIf="validationResult.success === false || validationResult.valid === false" class="alert alert-danger">
+            <span><strong><em class="fa fa-exclamation-triangle mr-2" aria-hidden="true"></em>
+                   {{validationResult.success === false ? validationResult?.error?.info : "The phone number you entered is invalid"}}
+            </strong></span>
+      </div>
+    <div class="row justify-content-center ">
+      <mat-card *ngIf="validationResult.valid" class="col-md-6 alert alert-light">
+          <div class="row">
+            <div class="col-md-4"><span><strong> Status:  </strong></span></div> <div class="col-md-6">Valid <em class="fa fa-check-circle"></em></div>
+            <div class="col-md-4"><span><strong> Phone Number:  </strong></span></div> <div class="col-md-6">{{validationResult.number}} </div>
+            <div class="col-md-4"><span><strong> Local Format:  </strong></span></div> <div class="col-md-6">{{validationResult.local_format}} </div>
+            <div class="col-md-4"><span><strong> International Format:</strong></span></div> <div class="col-md-6">{{validationResult.international_format}} </div>
+            <div class="col-md-4"><span><strong> Country Prefix:  </strong></span></div> <div class="col-md-6">{{validationResult.country_prefix}} </div>
+            <div class="col-md-4"><span><strong> Country Code:  </strong></span></div> <div class="col-md-6">{{validationResult.country_code}} </div>
+            <div class="col-md-4"><span><strong> Country Name:  </strong></span></div> <div class="col-md-6">{{validationResult.country_name}} </div>
+            <div class="col-md-4"><span><strong> Location:  </strong></span></div> <div class="col-md-6">{{validationResult.location}} </div>
+            <div class="col-md-4"><span><strong> Carrier:  </strong></span></div> <div class="col-md-6">{{validationResult.carrier}} </div>
+            <div class="col-md-4"><span><strong> Line Type:  </strong></span></div> <div class="col-md-6">{{validationResult.line_type}} </div>
+        </div>
+      </mat-card>
+
     </div>
   </div>
 
-  <br>
-  <div class="row">
-<button type="submit">  
-   Submit Form </button>
-</div>
-  </form>
+
 </div>

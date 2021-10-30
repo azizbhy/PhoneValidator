@@ -6,8 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
 import { NavComponent } from './nav.component';
+import {MatButtonHarness} from '@angular/material/button/testing';
+import {HarnessLoader} from '@angular/cdk/testing';
+
+let loader: HarnessLoader;
+
 
 describe('NavComponent', () => {
   let component: NavComponent;
@@ -37,4 +41,7 @@ describe('NavComponent', () => {
   it('should compile', () => {
     expect(component).toBeTruthy();
   });
+
+ 
+
 });

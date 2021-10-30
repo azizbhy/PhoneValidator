@@ -6,8 +6,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-
+import {RouterTestingModule} from '@angular/router/testing'
 import { HomeComponent } from './home.component';
+import {MatButtonHarness} from '@angular/material/button/testing';
+import {HarnessLoader} from '@angular/cdk/testing';
+
+
+let loader: HarnessLoader;
+
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -15,16 +21,19 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomeComponent],
+      declarations: [
+        HomeComponent,
+      ],
       imports: [
         NoopAnimationsModule,
+        RouterTestingModule,
         LayoutModule,
         MatButtonModule,
         MatCardModule,
         MatGridListModule,
         MatIconModule,
         MatMenuModule,
-      ]
+      ],
     }).compileComponents();
   }));
 
@@ -37,4 +46,6 @@ describe('HomeComponent', () => {
   it('should compile', () => {
     expect(component).toBeTruthy();
   });
+
 });
+

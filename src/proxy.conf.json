@@ -1,0 +1,9 @@
+{
+    "/api-form/*": {
+        "target": "https://apilayer.net/api/validate?access_key=eb588dbf70cb81df1c8d374269db9d18",
+        "secure": true,
+        "logLevel": "debug",
+        "changeOrigin": true
+
+    }
+}

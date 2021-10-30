@@ -20,18 +20,27 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { apiService } from './services/api.service';
-import { HttpClientModule } from '@angular/common/http';
+import { } from '@angular/common/http';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { FormsModule } from '@angular/forms';
-
-
+import { CommonModule } from '@angular/common';
+import { MatFormField } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { CountryCodeListComponent } from '../app/components/country-code-list/country-code-list.component';
+import {MatSelectModule} from '@angular/material/select';
+import {HTTP_INTERCEPTORS,HttpClient, HttpClientModule , HttpHeaders} from '@angular/common/http';
+import {MatInputModule} from '@angular/material/input';
+import {ErrorInterceptor} from '../app/interceptor/errorHandler.interceptor';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ApiFormComponent,
-    NavComponent
+    NavComponent,
+    CountryCodeListComponent
   ],
   imports: [
     BrowserModule,
@@ -52,10 +61,18 @@ import { FormsModule } from '@angular/forms';
     MatTabsModule,
     HttpClientModule,
     MatAutocompleteModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatInputModule,
+    
     
   ],
-  providers: [apiService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },apiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

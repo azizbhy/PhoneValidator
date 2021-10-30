@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { apiService } from '../../services/api.service';
 import { Country } from 'src/app/model/Code';
-import { Input } from '@angular/core';
-import { Pipe, PipeTransform } from '@angular/core';
-
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { formValidationResponse } from 'src/app/model/formValidationResponse.model';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,31 +13,33 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ApiFormComponent implements OnInit {
 
+
+
+  selectedCountry!: Country;
+  number = new FormControl('', [Validators.required]);
+
+  $validationResult!: Observable<formValidationResponse>;
+
+
+
+
   constructor(private api_service : apiService){
-
+   
   }
 
-  listCodesCountries:Country[];
 
-    
-  onSubmit(data){
-console.warn(data)
-  }
-
+CorrectNumber() {
+  this.$validationResult = this.api_service.validateNumber(
+    this.number.value,
+    this.selectedCountry?.countryCode ?? '');
+}
 
   ngOnInit() {
-   this.getCodes()
+  
   }
-
-
-  getCodes(){
-    this.api_service.getCodeByCountry().subscribe(
-      data => {
-          this.listCodesCountries = data;    
-      },
-      err => console.error(err), 
-      () => console.log(this.listCodesCountries)
-  );
+  
+  otherCountry(country: Country) {
+    this.selectedCountry = country;
   }
 
 

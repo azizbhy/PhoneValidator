@@ -5,9 +5,33 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-       <a mat-list-item routerLink="/home" id="firstItem">Home</a><br><br>
+      <section>
+        <div class="example-button-row">
+          <div class="example-flex-container">
+            <div class="example-button-container" style=" margin: 0;
+            position: absolute;
+            top: 20%;
+            left: 30%;
+           ">
+              <button mat-fab color="warn" aria-label="Example icon button with a home icon">
+                <mat-icon routerLink="/home" id="firstItem">home</mat-icon>
+              </button>
+            </div>
+            <br><br>
+            <br>
 
-       <a mat-list-item routerLink="/api-form">Get Started</a>
+            <div class="example-button-container" style=" margin: 0;
+            position: absolute;
+            top: 40%;
+            left: 30%;
+           ">
+              <button mat-fab color="warn" aria-label="Example icon button with a heart icon">
+                <mat-icon routerLink="/api-form" >task</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
