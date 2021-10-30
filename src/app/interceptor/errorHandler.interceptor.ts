@@ -15,7 +15,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private _snackBar: MatSnackBar) { }
+    constructor(private window: MatSnackBar) { }
 
  
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -27,15 +27,11 @@ export class ErrorInterceptor implements HttpInterceptor {
            
               const {code, info, type} = body.error;
               switch (code) {
-                case 404: this.openSnackBar("The server is Down or no longer Exist !!"); break;
-                case 101: this.openSnackBar("Invalid Credential !!"); break;
-                case 103: this.openSnackBar("Invalid Request !!"); break;
-                case 310: this.openSnackBar(info); break;
-                case 104: this.openSnackBar("The maximum number of request has been reached !!"); break;
-                case 105: this.openSnackBar("Your Subscription Don't allow the use of HTTPS !!"); break;
-                case 102: this.openSnackBar("Invalid User !!"); break;
+                case 101: this.snackBar("Invalid Credentials"); break;
+                case 103: this.snackBar("Invalid Request"); break;
+                case 310: this.snackBar(info); break;
               }
-              // And we transform the response to an error so that it will not be catch bu the subscribe fn.
+
               throw new HttpErrorResponse({
                 error: info,
                 headers: event.headers,
@@ -50,8 +46,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           }));
     }
 
-  openSnackBar(message: string) {
-    this._snackBar.open(message, "Dismiss");
+  snackBar(message: string) {
+    this.window.open(message, "Done");
   }
 }
 
