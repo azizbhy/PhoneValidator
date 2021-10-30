@@ -32,10 +32,6 @@ describe('ApiFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('getPhoneValidation() Should be a defined function', () => {
-    expect(component.getPhoneValidation).toBeDefined();
-  });
-
   it('getCodes() Should be a defined function', () => {
     expect(component.CorrectNumber).toBeDefined();
   });
